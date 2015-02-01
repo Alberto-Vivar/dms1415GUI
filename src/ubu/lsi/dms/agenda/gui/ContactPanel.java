@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -87,6 +89,10 @@ public class ContactPanel extends JPanel {
 		
 		addChangeButtonPanel.setInsertarTipoContactoListener(new InsertarTipoContactoListener());
 		addChangeButtonPanel.setAcualizarTipoContactoListener(new ActualizarTipoContactoListener());
+		
+		//Mecanismo de notificación de cambio de los colegas al mediador
+		contactDataPanel.setKeyListenerNumero(new SoloNumeroListener());
+		contactDataPanel.setKeyListenerTexto(new SoloTextoListener());
 
 
 
@@ -417,7 +423,7 @@ public class ContactPanel extends JPanel {
 	
 	}
 	
-	
+	//Mecanismos de propagación de cambios del mediador a los colegas
 	private class ActualizarTipoContactoListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -435,6 +441,49 @@ public class ContactPanel extends JPanel {
 		}
 	}
 	
+	//Mecanismos de propagación de cambios del mediador a los colegas
+	private class SoloNumeroListener implements KeyListener{
+
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+		}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+			char car = arg0.getKeyChar();
+			if((car<'0' || car>'9')) arg0.consume();
+			
+		}		
+	}
 	
+	//Mecanismos de propagación de cambios del mediador a los colegas
+	private class SoloTextoListener implements KeyListener{
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+			
+		}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+			
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+			char car = arg0.getKeyChar(); 
+			if((car<'a' || car>'z') && (car<'A' || car>'Z')
+			   && (car!=(char)KeyEvent.VK_SPACE))
+			{
+
+			   arg0.consume();
+			}
+			
+		}
+		
+	}	
 
 }
