@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -56,6 +58,8 @@ public class CallPanel extends JPanel {
 		
 		insertButtonsPanel.setInsertarListener(new InsertarLlamadaListener());
 		
+		//Mecanismo de notificación de cambio de los colegas al mediador
+		callDataPanel.setKeyListener(new SoloNumeroListener());  //En este caso solo necesitamos el de numero, se omite el de texto
 		
 
 		westPane = new JPanel();
@@ -92,7 +96,7 @@ public class CallPanel extends JPanel {
 
 	}
 
-	
+	//Mecanismos de propagación de cambios del mediador a los colegas
 	private class InsertarLlamadaListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -125,6 +129,27 @@ public class CallPanel extends JPanel {
 			}
 			return buscado;
 		}
+	}
+	
+	//Mecanismos de propagación de cambios del mediador a los colegas
+	private class SoloNumeroListener implements KeyListener {
+
+		@Override
+		public void keyPressed(KeyEvent arg0) {
+		}
+
+		@Override
+		public void keyReleased(KeyEvent arg0) {
+		}
+
+		@Override
+		public void keyTyped(KeyEvent arg0) {
+			char car = arg0.getKeyChar();
+			if ((car < '0' || car > '9'))
+				arg0.consume();
+
+		}
+
 	}
 	
 	

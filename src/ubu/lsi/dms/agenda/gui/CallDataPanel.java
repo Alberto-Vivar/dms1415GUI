@@ -72,7 +72,7 @@ public class CallDataPanel extends JPanel {
 
 		dayField = new JTextField(2);
 		dayField.setText("DD");
-		dayField.addKeyListener(new SoloNumeroListener());
+//		dayField.addKeyListener(new SoloNumeroListener());		Con el metodo para añadir listener no lo necesitamos
 		setConstraints(3, 0, 1, GridBagConstraints.WEST,
 				GridBagConstraints.NONE);
 		callInfoPanel.add(dayField, constraints);
@@ -83,7 +83,7 @@ public class CallDataPanel extends JPanel {
 
 		monthField = new JTextField(2);
 		monthField.setText("MM");
-		monthField.addKeyListener(new SoloNumeroListener());
+//		monthField.addKeyListener(new SoloNumeroListener());	Con el metodo para añadir listener no lo necesitamos
 		setConstraints(5, 0, 1, GridBagConstraints.WEST,
 				GridBagConstraints.NONE);
 		callInfoPanel.add(monthField, constraints);
@@ -94,7 +94,7 @@ public class CallDataPanel extends JPanel {
 
 		yearField = new JTextField(4);
 		yearField.setText("YYYY");
-		yearField.addKeyListener(new SoloNumeroListener());
+//		yearField.addKeyListener(new SoloNumeroListener());		Con el metodo para añadir listener no lo necesitamos
 		setConstraints(7, 0, 1, GridBagConstraints.WEST,
 				GridBagConstraints.NONE);
 		callInfoPanel.add(yearField, constraints);
@@ -219,54 +219,15 @@ public class CallDataPanel extends JPanel {
 		
 		return Contacto;
 
-}
-	
-	
-	
-	
-	
-	private class SoloNumeroListener implements KeyListener {
-
-		@Override
-		public void keyPressed(KeyEvent arg0) {
-		}
-
-		@Override
-		public void keyReleased(KeyEvent arg0) {
-		}
-
-		@Override
-		public void keyTyped(KeyEvent arg0) {
-			char car = arg0.getKeyChar();
-			if ((car < '0' || car > '9'))
-				arg0.consume();
-
-		}
-
 	}
-
-	private class SoloTextoListener implements KeyListener {
-		@Override
-		public void keyPressed(KeyEvent arg0) {
-
-		}
-
-		@Override
-		public void keyReleased(KeyEvent arg0) {
-
-		}
-
-		@Override
-		public void keyTyped(KeyEvent arg0) {
-			char car = arg0.getKeyChar();
-			if ((car < 'a' || car > 'z') && (car < 'A' || car > 'Z')
-					&& (car != (char) KeyEvent.VK_SPACE)) {
-
-				arg0.consume();
-			}
-
-		}
-
+	
+	//Añadimos los listener correspondientes
+	public void setKeyListener(KeyListener k) {
+		dayField.addKeyListener(k);
+		monthField.addKeyListener(k);
+		yearField.addKeyListener(k);
 	}
-
+	
+	
+	
 }
